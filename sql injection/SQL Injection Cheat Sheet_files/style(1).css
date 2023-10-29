@@ -1,0 +1,21 @@
+.markItUpButton1 A {
+	BACKGROUND-IMAGE: url(images/bold.png)
+}
+.markItUpButton2 A {
+	BACKGROUND-IMAGE: url(images/italic.png)
+}
+.markItUpButton3 A {
+	BACKGROUND-IMAGE: url(images/comments.png)
+}
+.markItUpButton4 A {
+	BACKGROUND-IMAGE: url(images/picture.png)
+}
+.markItUpButton5 A {
+	BACKGROUND-IMAGE: url(images/link.png)
+}
+.clean A {
+	BACKGROUND-IMAGE: url(images/clean.png)
+}
+.preview A {
+	BACKGROUND-IMAGE: url(images/preview.png)
+}

